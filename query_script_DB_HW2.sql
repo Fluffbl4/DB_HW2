@@ -11,20 +11,20 @@ CREATE TABLE genre (
 CREATE TABLE album (
     album_id SERIAL PRIMARY KEY,
     title VARCHAR(200) NOT NULL,
-    release_year SMALLINT CHECK (release_year > 1900 AND release_year <= EXTRACT(YEAR FROM CURRENT_DATE))
+    release_year DATE NOT NULL
 );
 
 CREATE TABLE track (
     track_id SERIAL PRIMARY KEY,
     title VARCHAR(300) NOT NULL,
-    duration INTERVAL NOT NULL,
+    duration INTEGER NOT NULL,
     album_id INT REFERENCES album(album_id) ON DELETE CASCADE
 );
 
 CREATE TABLE collection (
     collection_id SERIAL PRIMARY KEY,
     title VARCHAR(250) NOT NULL,
-    release_year SMALLINT CHECK (release_year > 1900 AND release_year <= EXTRACT(YEAR FROM CURRENT_DATE))
+    release_year DATE NOT NULL
 );
 
 CREATE TABLE artist_genre (
