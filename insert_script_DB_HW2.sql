@@ -58,3 +58,12 @@ INSERT INTO artist_album (artist_id, album_id) VALUES (2, 2);
 INSERT INTO artist_album (artist_id, album_id) VALUES (7, 5);
 INSERT INTO artist_album (artist_id, album_id) VALUES (8, 7);
 INSERT INTO artist_album (artist_id, album_id) VALUES (10, 6);
+
+-- Присоединение коллекций к трекам
+INSERT INTO collection_track (collection_id, track_id) VALUES (1, 1);
+INSERT INTO collection_track (collection_id, track_id) VALUES (1, 2);
+INSERT INTO collection_track (collection_id, track_id) VALUES (2, 3);
+INSERT INTO collection_track (collection_id, track_id) VALUES (2, 4);
+INSERT INTO collection_track (collection_id, track_id) VALUES (3, 5);
+INSERT INTO collection_track (collection_id, track_id) VALUES (3, 6);
+INSERT INTO collection_track (collection_id, track_id) VALUES (4, 7);

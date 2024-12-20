@@ -7,7 +7,7 @@ LIMIT 1;
 --Название треков, продолжительность которых больше 3.5 минут
 SELECT title
 FROM track
-WHERE duration > 210; -- 3 минуты 30 секунд в секундах
+WHERE duration >= 3,5 ; -- 3 минуты 30 секунд в секундах
 
 --Названия сборников, вышедших в период с 2018 по 2020 год включительно
 SELECT title
@@ -22,7 +22,7 @@ WHERE name NOT LIKE '% %'; -- Исключение имён, содержащи�
 --Название треков, которые содержат слово «мой» или «my»
 SELECT title
 FROM track
-WHERE LOWER(title) LIKE '%мой%' OR LOWER(title) LIKE '%my%';
+WHERE title ~* '\y(мой|my)\y';
 
 --Количество исполнителей в каждом жанре
 SELECT g.name AS genre_name, COUNT(DISTINCT ag.artist_id) AS artists_count
@@ -45,9 +45,12 @@ GROUP BY a.title;
 --Все исполнители, которые не выпустили альбомы в 2020 году.
 SELECT a.artist_id, a.name
 FROM artist a
-LEFT JOIN artist_album aa ON a.artist_id = aa.artist_id
-LEFT JOIN album al ON aa.album_id = al.album_id AND al.release_year != '2020-01-01'
-WHERE al.album_id IS NULL;
+WHERE a.artist_id NOT IN (
+    SELECT aa.artist_id
+    FROM artist_album aa
+    JOIN album al ON aa.album_id = al.album_id
+    WHERE al.release_year = '2020-01-01'
+);
 
 --Названия сборников, в которых присутствует конкретный исполнитель
 SELECT DISTINCT c.title
@@ -57,4 +60,4 @@ JOIN track t ON ct.track_id = t.track_id
 JOIN album a ON t.album_id = a.album_id
 JOIN artist_album aa ON a.album_id = aa.album_id
 JOIN artist ar ON aa.artist_id = ar.artist_id
-WHERE ar.name LIKE 'Da%';
+WHERE ar.name LIKE '%do%';
